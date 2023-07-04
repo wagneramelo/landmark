@@ -30,11 +30,11 @@ struct PageControl: UIViewRepresentable {
     
     class Coordinator: NSObject {
         var control: PageControl
-        
+
         init(_ control: PageControl){
             self.control = control
         }
-        
+
         @objc
         func updateCurrentPage(sender: UIPageControl) {
             control.currentPage = sender.currentPage

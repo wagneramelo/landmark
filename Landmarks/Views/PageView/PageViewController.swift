@@ -17,27 +17,26 @@ struct PageViewController<Page: View> : UIViewControllerRepresentable {
         Coordinator(self)
     }
     
-    func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-        pageViewController.setViewControllers([context.coordinator.controllers[currentPage]], direction: .forward, animated: true)
-    }
-    
-
-
-    
     func makeUIViewController(context: Context) -> UIPageViewController {
         let pageViewController = UIPageViewController(
             transitionStyle: .scroll, navigationOrientation: .horizontal)
         pageViewController.dataSource = context.coordinator
         pageViewController.delegate = context.coordinator
             
-            return pageViewController
+        return pageViewController
     }
     
-    class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
+        pageViewController.setViewControllers([context.coordinator.controllers[currentPage]], direction: .forward, animated: true)
+    }
+    
+    
+    class Coordinator: NSObject,UIPageViewControllerDataSource, UIPageViewControllerDelegate {
         var parent: PageViewController
-        var controllers = [UIViewController]()
+        var controllers: [UIViewController] = []
         
         func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+
             guard let index = controllers.firstIndex(of: viewController) else {
                 return nil
             }
@@ -49,6 +48,7 @@ struct PageViewController<Page: View> : UIViewControllerRepresentable {
         }
         
         func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        
             guard let index = controllers.firstIndex(of: viewController) else {
                 return nil
             }
