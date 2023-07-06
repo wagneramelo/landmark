@@ -16,7 +16,14 @@ struct LandmarkRow: View {
             landmark.image
                 .resizable()
                 .frame(width: 50, height: 50)
-            Text(landmark.name)
+                .cornerRadius(5)
+            VStack(alignment: .leading){
+                Text(landmark.name)
+                    .bold()
+                Text(landmark.park)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
             Spacer()
             if landmark.isFavorite {
                 Image(systemName: "star.fill")
@@ -24,6 +31,7 @@ struct LandmarkRow: View {
             }
             
         }
+        .padding(.vertical, 4)
 
         
     }
